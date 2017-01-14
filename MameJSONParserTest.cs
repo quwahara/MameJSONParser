@@ -423,5 +423,68 @@ namespace MameJSONParser.UnitTest
             Assert.AreEqual("v1", dic["n1"]);
             Assert.AreEqual("v2", dic["n2"]);
         }
+        [TestMethod]
+        public void ArrSB()
+        {
+            try
+            {
+                MameJSONParser.Parse("[");
+                Assert.Fail();
+            }
+            catch (Exception)
+            {
+            }
+        }
+        [TestMethod]
+        public void ArrSBSB()
+        {
+            var ret = MameJSONParser.Parse("[ ]");
+            Assert.IsTrue(ret is List<object>);
+            var ls = (List<object>)ret;
+            Assert.AreEqual(0, ls.Count);
+        }
+        [TestMethod]
+        public void ArrSB0SB()
+        {
+            var ret = MameJSONParser.Parse("[ 0 ]");
+            Assert.IsTrue(ret is List<object>);
+            var ls = (List<object>)ret;
+            Assert.AreEqual(1, ls.Count);
+            Assert.AreEqual(0, ls[0]);
+        }
+        [TestMethod]
+        public void ArrSB0Comma()
+        {
+            try
+            {
+                MameJSONParser.Parse("[ 0 , ");
+                Assert.Fail();
+            }
+            catch (Exception)
+            {
+            }
+        }
+        [TestMethod]
+        public void ArrSB0CommaSB()
+        {
+            try
+            {
+                MameJSONParser.Parse("[ 0 , ] ");
+                Assert.Fail();
+            }
+            catch (Exception)
+            {
+            }
+        }
+        [TestMethod]
+        public void ArrSB0Comma1SB()
+        {
+            var ret = MameJSONParser.Parse("[ 0 , 1 ]");
+            Assert.IsTrue(ret is List<object>);
+            var ls = (List<object>)ret;
+            Assert.AreEqual(2, ls.Count);
+            Assert.AreEqual(0, ls[0]);
+            Assert.AreEqual(1, ls[1]);
+        }
     }
 }
