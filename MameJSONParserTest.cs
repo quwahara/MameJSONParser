@@ -533,5 +533,26 @@ namespace MameJSONParser.UnitTest
             Assert.AreEqual(1, dic2_2.Count);
             Assert.AreEqual("v2_1", dic2_2["n2_1"]);
         }
+        [TestMethod]
+        public void Examples()
+        {
+            var obj = MameJSONParser.Parse("{\"key\": \"val\"}");
+            // => (Dictionary<string, object>) obj["key"] = "val"
+            Assert.IsTrue(obj is Dictionary<string, object>);
+            var dic = (Dictionary<string, object>)obj;
+            Assert.AreEqual(1, dic.Count);
+            Assert.AreEqual("val", dic["key"]);
+
+            var ls = MameJSONParser.Parse("[9, \"s\", 0.1, true, null]");
+            // => (List<object>) ls[0] = 9; ls[1] = "s"; ls[2] = 0.1; ls[3] = true; ls[4] = null; 
+            Assert.IsTrue(ls is List<object>);
+            var lst = (List<object>)ls;
+            Assert.AreEqual(5, lst.Count);
+            Assert.AreEqual(9, lst[0]);
+            Assert.AreEqual("s", lst[1]);
+            Assert.AreEqual(0.1, lst[2]);
+            Assert.AreEqual(true, lst[3]);
+            Assert.AreEqual(null, lst[4]);
+        }
     }
 }
