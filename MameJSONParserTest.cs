@@ -9,6 +9,93 @@ namespace MameJSONParser.UnitTest
     public class MameJSONParserTest
     {
         [TestMethod]
+        public void ArgumentNull()
+        {
+            try
+            {
+                MameJSONParser.Parse(null);
+                Assert.Fail();
+            }
+            catch (Exception)
+            {
+            }
+        }
+        [TestMethod]
+        public void ArgumentEmptyString1()
+        {
+            try
+            {
+                MameJSONParser.Parse("");
+                Assert.Fail();
+            }
+            catch (Exception)
+            {
+            }
+        }
+        [TestMethod]
+        public void ArgumentEmptyString2()
+        {
+            try
+            {
+                MameJSONParser.Parse("\n\r\t ");
+                Assert.Fail();
+            }
+            catch (Exception)
+            {
+            }
+        }
+        [TestMethod]
+        public void T()
+        {
+            try
+            {
+                MameJSONParser.Parse("t");
+                Assert.Fail();
+            }
+            catch (Exception)
+            {
+            }
+        }
+        [TestMethod]
+        public void True()
+        {
+            Assert.AreEqual(true, MameJSONParser.Parse("true"));
+        }
+        [TestMethod]
+        public void F()
+        {
+            try
+            {
+                MameJSONParser.Parse("f");
+                Assert.Fail();
+            }
+            catch (Exception)
+            {
+            }
+        }
+        [TestMethod]
+        public void False()
+        {
+            Assert.AreEqual(false, MameJSONParser.Parse("false"));
+        }
+        [TestMethod]
+        public void N()
+        {
+            try
+            {
+                MameJSONParser.Parse("n");
+                Assert.Fail();
+            }
+            catch (Exception)
+            {
+            }
+        }
+        [TestMethod]
+        public void Null()
+        {
+            Assert.AreEqual(null, MameJSONParser.Parse("null"));
+        }
+        [TestMethod]
         public void StrDQ()
         {
             try

@@ -8,6 +8,10 @@ namespace MameJSONParser
     {
         public static object Parse(string json)
         {
+            if(json == null)
+            {
+                throw new ArgumentNullException("json");
+            }
             return new MameJSONParser(json).Val();
         }
 
