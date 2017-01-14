@@ -300,5 +300,128 @@ namespace MameJSONParser.UnitTest
         {
             Assert.AreEqual(1e+12, MameJSONParser.Parse("1e+12"));
         }
+        [TestMethod]
+        public void ObjCB()
+        {
+            try
+            {
+                MameJSONParser.Parse("{");
+                Assert.Fail();
+            }
+            catch (Exception)
+            {
+            }
+        }
+        [TestMethod]
+        public void ObjCBCB()
+        {
+            var ret = MameJSONParser.Parse("{}");
+            Assert.IsTrue(ret is Dictionary<string, object>);
+            var dic = (Dictionary<string, object>)ret;
+            Assert.AreEqual(0, dic.Count);
+        }
+        [TestMethod]
+        public void ObjCBName()
+        {
+            try
+            {
+                MameJSONParser.Parse("{\"n\"");
+                Assert.Fail();
+            }
+            catch (Exception)
+            {
+            }
+        }
+        [TestMethod]
+        public void ObjCBNameColon()
+        {
+            try
+            {
+                MameJSONParser.Parse("{ \"n\" : ");
+                Assert.Fail();
+            }
+            catch (Exception)
+            {
+            }
+        }
+        [TestMethod]
+        public void ObjCBNameColonValue()
+        {
+            try
+            {
+                MameJSONParser.Parse("{ \"n\" : \"v\" ");
+                Assert.Fail();
+            }
+            catch (Exception)
+            {
+            }
+        }
+        [TestMethod]
+        public void ObjCBNameColonValueCB()
+        {
+            var ret = MameJSONParser.Parse("{ \"n\" : \"v\" } ");
+            Assert.IsTrue(ret is Dictionary<string, object>);
+            var dic = (Dictionary<string, object>)ret;
+            Assert.AreEqual(1, dic.Count);
+            Assert.AreEqual("v", dic["n"]);
+        }
+        [TestMethod]
+        public void ObjCBNameColonValueComma()
+        {
+            try
+            {
+                MameJSONParser.Parse("{ \"n\" : \"v\" , ");
+                Assert.Fail();
+            }
+            catch (Exception)
+            {
+            }
+        }
+        [TestMethod]
+        public void ObjCBNameColonValueCommaName()
+        {
+            try
+            {
+                MameJSONParser.Parse("{ \"n1\" : \"v1\" , \"n2\" ");
+                Assert.Fail();
+            }
+            catch (Exception)
+            {
+            }
+        }
+        [TestMethod]
+        public void ObjCBNameColonValueCommaNameColon()
+        {
+            try
+            {
+                MameJSONParser.Parse("{ \"n1\" : \"v1\" , \"n2\" : ");
+                Assert.Fail();
+            }
+            catch (Exception)
+            {
+            }
+        }
+        [TestMethod]
+        public void ObjCBNameColonValueCommaNameColonValue()
+        {
+            try
+            {
+                MameJSONParser.Parse("{ \"n1\" : \"v1\" , \"n2\" : \"v2\" ");
+                Assert.Fail();
+            }
+            catch (Exception)
+            {
+            }
+        }
+        [TestMethod]
+        public void ObjCBNameColonValueCommaNameColonValueCB()
+        {
+            var ret = MameJSONParser.Parse("{ \"n1\" : \"v1\" , \"n2\" : \"v2\" } ");
+            Assert.IsTrue(ret is Dictionary<string, object>);
+            var dic = (Dictionary<string, object>)ret;
+            Assert.AreEqual(2, dic.Count);
+            Assert.AreEqual("v1", dic["n1"]);
+            Assert.AreEqual("v2", dic["n2"]);
+        }
     }
 }

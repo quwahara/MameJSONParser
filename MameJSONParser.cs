@@ -8,14 +8,19 @@ namespace MameJSONParser
     {
         public static object Parse(string json)
         {
-            if(json == null)
+            if (json == null)
             {
                 throw new ArgumentNullException("json");
             }
-            return new MameJSONParser(json).Val();
+            var parser = new MameJSONParser(json);
+            var val = parser.Val();
+            if (!parser.EOJ)
+            {
+                throw parser.NewException("Too much data.");
+            }
+            return val;
         }
 
-        private readonly List<char> spaces = new List<char>(new char[] { ' ', '\t', '\n', '\r' });
         private string json;
         private int i;
         private int line;
@@ -80,6 +85,8 @@ namespace MameJSONParser
                 Consume(ch);
             }
         }
+
+        private readonly List<char> spaces = new List<char>(new char[] { ' ', '\t', '\n', '\r' });
 
         private void SkipSpace()
         {
@@ -260,10 +267,6 @@ namespace MameJSONParser
                     break;
             }
             SkipSpace();
-            if (!EOJ)
-            {
-                throw NewException("Too much data.");
-            }
             return ret;
         }
 
