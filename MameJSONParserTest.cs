@@ -96,6 +96,18 @@ namespace MameJSONParser.UnitTest
             Assert.AreEqual(null, MameJSONParser.Parse("null"));
         }
         [TestMethod]
+        public void StrControl()
+        {
+            try
+            {
+                MameJSONParser.Parse("\"\t\"");
+                Assert.Fail();
+            }
+            catch (Exception)
+            {
+            }
+        }
+        [TestMethod]
         public void StrDQ()
         {
             try

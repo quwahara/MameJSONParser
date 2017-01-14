@@ -58,12 +58,13 @@ namespace MameJSONParser
         {
             var ch = C;
             ++i;
+            ++col;
             if (!EOJ)
             {
                 if (C == '\n')
                 {
                     ++line;
-                    col = 0;
+                    col = 1;
                 }
             }
             return ch;
@@ -96,12 +97,23 @@ namespace MameJSONParser
             }
         }
 
+
+        private bool IsControl(char ch)
+        {
+            var i = (int)ch;
+            return (0x0 <= i && i <= 0x1F) || i == 0x7F;
+        }
+
         private string Str()
         {
             Consume('"');
             var b = new StringBuilder();
             while (!EOJ && C != '"')
             {
+                if (IsControl(C))
+                {
+                    throw NewException(string.Format("Control character is prohibited. character code: 0x{0}", ((int)C).ToString("X2")));
+                }
                 if (C == '\\')
                 {
                     Next();
