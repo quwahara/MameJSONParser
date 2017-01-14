@@ -11,7 +11,7 @@ namespace MameJSONParser
             return new MameJSONParser(json).Val();
         }
 
-        private readonly List<char> spaces = new List<char>(new char[] { ' ', '\t' });
+        private readonly List<char> spaces = new List<char>(new char[] { ' ', '\t', '\n', '\r' });
         private string json;
         private int i;
         private int line;

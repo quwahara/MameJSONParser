@@ -9,6 +9,85 @@ namespace MameJSONParser.UnitTest
     public class MameJSONParserTest
     {
         [TestMethod]
+        public void StrDQ()
+        {
+            try
+            {
+                MameJSONParser.Parse("\"");
+                Assert.Fail();
+            }
+            catch (Exception)
+            {
+            }
+        }
+        [TestMethod]
+        public void StrDQDQ()
+        {
+            Assert.AreEqual("", MameJSONParser.Parse("\"\""));
+        }
+        [TestMethod]
+        public void StrESC()
+        {
+            try
+            {
+                MameJSONParser.Parse("\"\\");
+                Assert.Fail();
+            }
+            catch (Exception)
+            {
+            }
+        }
+        [TestMethod]
+        public void StrESCDQ()
+        {
+            Assert.AreEqual("\"", MameJSONParser.Parse("\"\\\"\""));
+        }
+        [TestMethod]
+        public void StrESCRS()
+        {
+            Assert.AreEqual("\\", MameJSONParser.Parse("\"\\\\\""));
+        }
+        [TestMethod]
+        public void StrESCSL()
+        {
+            Assert.AreEqual("/", MameJSONParser.Parse("\"\\/\""));
+        }
+        [TestMethod]
+        public void StrESCBS()
+        {
+            Assert.AreEqual("\b", MameJSONParser.Parse("\"\\b\""));
+        }
+        [TestMethod]
+        public void StrESCFF()
+        {
+            Assert.AreEqual("\f", MameJSONParser.Parse("\"\\f\""));
+        }
+        [TestMethod]
+        public void StrESCNL()
+        {
+            Assert.AreEqual("\n", MameJSONParser.Parse("\"\\n\""));
+        }
+        [TestMethod]
+        public void StrESCCR()
+        {
+            Assert.AreEqual("\r", MameJSONParser.Parse("\"\\r\""));
+        }
+        [TestMethod]
+        public void StrESCHT()
+        {
+            Assert.AreEqual("\t", MameJSONParser.Parse("\"\\t\""));
+        }
+        [TestMethod]
+        public void StrESCUNC()
+        {
+            Assert.AreEqual("が", MameJSONParser.Parse("\"\\u304C\""));
+        }
+        [TestMethod]
+        public void StrXESCHTY()
+        {
+            Assert.AreEqual("X\tY", MameJSONParser.Parse("\"X\\tY\""));
+        }
+        [TestMethod]
         public void Number0()
         {
             Assert.AreEqual(0, MameJSONParser.Parse("0"));
