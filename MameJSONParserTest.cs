@@ -45,6 +45,18 @@ namespace MameJSONParser.UnitTest
             }
         }
         [TestMethod]
+        public void ArgumentTooMuch()
+        {
+            try
+            {
+                MameJSONParser.Parse("null t");
+                Assert.Fail();
+            }
+            catch (Exception)
+            {
+            }
+        }
+        [TestMethod]
         public void T()
         {
             try
@@ -497,6 +509,29 @@ namespace MameJSONParser.UnitTest
             Assert.AreEqual(2, ls.Count);
             Assert.AreEqual(0, ls[0]);
             Assert.AreEqual(1, ls[1]);
+        }
+        [TestMethod]
+        public void Complex1()
+        {
+            var ret = MameJSONParser.Parse("[ [ 0 , 1 ] , { \"n1\" : [ 0 , 1 ] , \"n2\" : { \"n2_1\" : \"v2_1\" } } ]");
+            Assert.IsTrue(ret is List<object>);
+            var ls = (List<object>)ret;
+            Assert.AreEqual(2, ls.Count);
+            Assert.IsTrue(ls[0] is List<object>);
+            var ls1 = (List<object>)ls[0];
+            Assert.AreEqual(2, ls1.Count);
+            Assert.AreEqual(0, ls1[0]);
+            Assert.AreEqual(1, ls1[1]);
+            Assert.IsTrue(ls[1] is Dictionary<string, object>);
+            var dic2 = (Dictionary<string, object>)ls[1];
+            Assert.AreEqual(2, dic2.Count);
+            Assert.IsTrue(dic2["n1"] is List<object>);
+            var ls2_1 = (List<object>)dic2["n1"];
+            Assert.AreEqual(0, ls2_1[0]);
+            Assert.AreEqual(1, ls2_1[1]);
+            var dic2_2 = (Dictionary<string, object>)dic2["n2"];
+            Assert.AreEqual(1, dic2_2.Count);
+            Assert.AreEqual("v2_1", dic2_2["n2_1"]);
         }
     }
 }
