@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Quwahara.MameJSONParser.MameJSONParser</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Mitsuaki Kuwahara</authors>
+    <owners>Mitsuaki Kuwahara</owners>
+    <licenseUrl>https://github.com/quwahara/MameJSONParser/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/quwahara/MameJSONParser</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A simple JSON parser</description>
+    <releaseNotes>First release</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>Library Lib JSON Parser</tags>
+  </metadata>
+</package>
