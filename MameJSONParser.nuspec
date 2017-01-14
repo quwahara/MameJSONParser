@@ -9,7 +9,7 @@
     <licenseUrl>https://github.com/quwahara/MameJSONParser/blob/master/LICENSE.txt</licenseUrl>
     <projectUrl>https://github.com/quwahara/MameJSONParser</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>A simple JSON parser</description>
+    <description>A simple JSON parser. See examples in the project page.</description>
     <releaseNotes>First release</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>Library Lib JSON Parser</tags>
