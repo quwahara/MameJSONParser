@@ -20,6 +20,10 @@ var ls = MameJSONParser.Parse("[9, \"s\", 0.1, true, null]");
 // => (List<object>) ls[0] = 9; ls[1] = "s"; ls[2] = 0.1; ls[3] = true; ls[4] = null; 
 ```
 
+## NuGet
+
+https://www.nuget.org/packages/Quwahara.MameJSONParser.MameJSONParser/
+
 ## License
 
 This software is released under the MIT License, see LICENSE.txt.
